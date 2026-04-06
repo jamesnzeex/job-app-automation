@@ -6,7 +6,7 @@ from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from .models import Base, Application, JobSource, Interview
+from .models import Base, Application, JobSource, Interview, Contact, Note
 
 # Get database path from environment or use default
 DB_PATH = os.getenv("DB_PATH", "./data/applications.db")

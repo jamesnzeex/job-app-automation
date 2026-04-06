@@ -118,3 +118,53 @@ class Interview(Base):
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Contact(Base):
+    """Track recruiters and hiring managers"""
+    __tablename__ = "contacts"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    application_id = Column(Integer, nullable=True)  # Link to application if known
+    name = Column(String(255), nullable=False)
+    company = Column(String(255), nullable=True)
+    role = Column(String(255), nullable=True)  # Recruiter, Hiring Manager, etc.
+    email = Column(String(255), nullable=True)
+    linkedin_url = Column(String(500), nullable=True)
+    phone = Column(String(50), nullable=True)
+    
+    # Relationship tracking
+    relationship_notes = Column(Text, nullable=True)
+    last_contacted = Column(DateTime, nullable=True)
+    
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Note(Base):
+    """Track notes about applications or companies"""
+    __tablename__ = "notes"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    application_id = Column(Integer, nullable=True)
+    company = Column(String(255), nullable=True)
+    
+    # Note content
+    title = Column(String(255), nullable=True)
+    content = Column(Text, nullable=False)
+    note_type = Column(String(50), default="general")  # general, follow_up, interview_prep, etc.
+    
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class JobSource(Base):
+    """Track where job postings came from for analytics"""
+    __tablename__ = "job_sources"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    platform = Column(SQLEnum(JobPlatform), nullable=False)
+    url = Column(String(500), unique=True, nullable=True)
+    scraped_at = Column(DateTime, default=datetime.utcnow)
