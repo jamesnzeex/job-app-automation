@@ -6,6 +6,12 @@ pydantic==2.5.3
 python-dotenv==1.0.0
 playwright==1.40.0
 httpx==0.26.0
+pytest==7.4.4
+pytest-asyncio==0.23.3
+
+# Testing
+testcontainers==3.7.1
+responses==0.24.1
 
 # Scraping
 beautifulsoup4==4.12.3
